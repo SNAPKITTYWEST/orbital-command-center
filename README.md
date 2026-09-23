@@ -77,18 +77,23 @@ ruby test_app.rb
 
 ```
 orbital-command-center/
-├── app.rb          # HTTP server + planet catalog (stdlib only)
-├── view.erb        # ERB template — full UI shell
-├── app.js          # Canvas renderer + controls
-├── style.css       # Mission-control dark theme
-├── test_app.rb     # Minitest suite (3 tests, 23 assertions)
+├── app.rb              # HTTP server + planet catalog (stdlib only)
+├── app.js              # Canvas renderer + all controls
+├── style.css           # Mission-control dark theme
+├── index.html          # Static build — GitHub Pages entry point
+├── views/
+│   └── index.erb       # ERB template — full UI shell
+├── test/
+│   └── test_app.rb     # Minitest suite (3 tests, 23 assertions)
 ├── docs/
 │   ├── USER_GUIDE.md
 │   └── TECHNICAL_GUIDE.md
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
-└── LICENSE         # Apache 2.0
+└── LICENSE             # Apache 2.0
 ```
+
+Run tests: `ruby test/test_app.rb`
 
 ---
 

@@ -33,9 +33,9 @@ module Orbital
   def self.response(path)
     case path
     when '/', '/index.html'
-      ['text/html; charset=utf-8', ERB.new(File.read(File.join(ROOT, 'view.erb'))).result(binding)]
-    when '/app.js' then ['text/javascript; charset=utf-8', File.read(File.join(ROOT, 'app.js'))]
-    when '/style.css' then ['text/css; charset=utf-8', File.read(File.join(ROOT, 'style.css'))]
+      ['text/html; charset=utf-8', ERB.new(File.read(File.join(ROOT, 'views', 'index.erb'))).result(binding)]
+    when '/app.js'    then ['text/javascript; charset=utf-8', File.read(File.join(ROOT, 'app.js'))]
+    when '/style.css' then ['text/css; charset=utf-8',        File.read(File.join(ROOT, 'style.css'))]
     when '/api/bodies' then ['application/json', JSON.generate(BODIES)]
     else nil
     end

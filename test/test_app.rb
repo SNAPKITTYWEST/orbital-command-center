@@ -14,7 +14,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 require 'minitest/autorun'
-require_relative 'app'
+require_relative '../app'
 class OrbitalTest < Minitest::Test
   def test_rendered_directory_matches_catalog
     type, html = Orbital.response('/')

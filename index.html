@@ -1,0 +1,145 @@
+<!doctype html>
+<!--
+  Copyright 2026 SNAPKITTYWEST
+  Licensed under the Apache License, Version 2.0
+  http://www.apache.org/licenses/LICENSE-2.0
+  SPDX-License-Identifier: Apache-2.0
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MINIKRAN · Orbital Command Center</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script id="data" type="application/json">
+[
+  {"name":"Mercury","color":"#aba8a3","au":0.387,"period":88,"radius":2440,"phase":0.2},
+  {"name":"Venus",  "color":"#edbe70","au":0.723,"period":224.7,"radius":6052,"phase":2.6},
+  {"name":"Earth",  "color":"#40b9ff","au":1.0,  "period":365.25,"radius":6371,"phase":0.9},
+  {"name":"Mars",   "color":"#ee754d","au":1.524,"period":687,"radius":3390,"phase":5.6},
+  {"name":"Jupiter","color":"#dcb08b","au":5.203,"period":4333,"radius":69911,"phase":4.2},
+  {"name":"Saturn", "color":"#e5c687","au":9.537,"period":10759,"radius":58232,"phase":5.5},
+  {"name":"Uranus", "color":"#78e3e8","au":19.191,"period":30687,"radius":25362,"phase":2.9},
+  {"name":"Neptune","color":"#4779ed","au":30.069,"period":60190,"radius":24622,"phase":3.8}
+]
+</script>
+
+<header>
+  <div class="brand">
+    <span class="logo">◎</span>
+    <div>ORBITAL VIEW<small>MINIKRAN / COMMAND CENTER</small></div>
+  </div>
+  <nav>
+    <button class="active" id="home">SOLAR SYSTEM</button>
+    <button id="top">TOP DOWN</button>
+    <button id="export">EXPORT TELEMETRY ↗</button>
+  </nav>
+  <div class="live">
+    <i></i> LOCAL SIMULATION
+    <time id="clock"></time>
+  </div>
+</header>
+
+<main>
+  <aside class="left panel">
+    <div class="eyebrow">CELESTIAL DIRECTORY <span>08</span></div>
+    <h2>Solar system</h2>
+    <div id="bodies">
+      <button class="body" data-name="Mercury"><i style="background:#aba8a3"></i>Mercury<span>↗</span></button>
+      <button class="body" data-name="Venus">  <i style="background:#edbe70"></i>Venus<span>↗</span></button>
+      <button class="body" data-name="Earth">  <i style="background:#40b9ff"></i>Earth<span>↗</span></button>
+      <button class="body" data-name="Mars">   <i style="background:#ee754d"></i>Mars<span>↗</span></button>
+      <button class="body" data-name="Jupiter"><i style="background:#dcb08b"></i>Jupiter<span>↗</span></button>
+      <button class="body" data-name="Saturn"> <i style="background:#e5c687"></i>Saturn<span>↗</span></button>
+      <button class="body" data-name="Uranus"> <i style="background:#78e3e8"></i>Uranus<span>↗</span></button>
+      <button class="body" data-name="Neptune"><i style="background:#4779ed"></i>Neptune<span>↗</span></button>
+    </div>
+    <div class="divider"></div>
+    <div class="eyebrow">DISPLAY LAYERS</div>
+    <label><input type="checkbox" data-layer="Orbits"        checked> Orbits</label>
+    <label><input type="checkbox" data-layer="Labels"        checked> Labels</label>
+    <label><input type="checkbox" data-layer="Asteroid belt" checked> Asteroid belt</label>
+    <label><input type="checkbox" data-layer="Grid"          checked> Grid</label>
+    <div class="notice">
+      <i></i> VISUALIZATION ONLINE
+      <p>Idealized circular orbits.<br>Distances visually compressed.</p>
+    </div>
+  </aside>
+
+  <section class="viewport">
+    <canvas id="space" aria-label="Interactive two-dimensional solar system"></canvas>
+    <div class="scene-title">
+      <span class="eyebrow">HELIOCENTRIC / 2D</span>
+      <h1>The solar neighborhood</h1>
+      <p>Select a world. Follow its orbit.</p>
+    </div>
+    <div class="zoom">
+      <button id="in"    aria-label="Zoom in">+</button>
+      <button id="out"   aria-label="Zoom out">−</button>
+      <button id="reset" aria-label="Reset view">⌖</button>
+    </div>
+    <div class="scene-footer">
+      <span>◈ SOL CENTERED</span>
+      <span id="days">T + 0.00 DAYS</span>
+      <span>SCHEMATIC VIEW</span>
+    </div>
+  </section>
+
+  <aside class="right">
+    <section class="panel target">
+      <div class="eyebrow">SELECTED TARGET <span>01</span></div>
+      <div id="planet-icon"></div>
+      <h2 id="name">Earth</h2>
+      <p class="subtitle">PLANET / SOL SYSTEM</p>
+      <dl id="facts"></dl>
+      <button class="primary" id="focus">⌖ FOCUS TARGET</button>
+      <button id="track">◎ TRACK ORBIT</button>
+    </section>
+    <section class="panel signal">
+      <div class="eyebrow">MISSION STATUS</div>
+      <h3><i></i> Simulation nominal</h3>
+      <div class="wave">▁▂▁▃▅▂▁▂▆▇▃▂▁▂▃▅▂▁▃▆▂▁</div>
+      <p>Static visualization<br>GitHub Pages session</p>
+      <div class="status-line">
+        <span>Kernel connection</span>
+        <b>OFFLINE</b>
+      </div>
+    </section>
+  </aside>
+</main>
+
+<footer>
+  <div>
+    <div class="eyebrow">SIMULATION CONTROLS</div>
+    <div class="controls">
+      <button id="pause">Ⅱ PAUSE</button>
+      <select id="speed">
+        <option value="1">1× speed</option>
+        <option value="5" selected>5× speed</option>
+        <option value="10">10× speed</option>
+        <option value="25">25× speed</option>
+        <option value="50">50× speed</option>
+      </select>
+      <button id="home2" onclick="document.getElementById('home').click()">SOLAR SYSTEM</button>
+      <button id="top2"  onclick="document.getElementById('top').click()">TOP DOWN</button>
+    </div>
+  </div>
+  <div>
+    <div class="eyebrow">COORDINATES (AU)</div>
+    <div class="coordinates">
+      <div>X<b id="x">—</b></div>
+      <div>Y<b id="y">—</b></div>
+    </div>
+  </div>
+  <div class="footer-end">
+    <div class="eyebrow">EVENT LOG</div>
+    <p id="event">Awaiting input…</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

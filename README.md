@@ -11,7 +11,15 @@ Eight planets animate in real time. Select any body for telemetry. Toggle displa
 
 ---
 
-## Quick start
+## Live demo
+
+> **[→ Open in browser](https://snapkittywest.github.io/orbital-command-center/)**
+
+Served via GitHub Pages — no install required.
+
+---
+
+## Run locally
 
 ```bash
 # Ruby 3.2+ required. No gems. No bundler. No npm.

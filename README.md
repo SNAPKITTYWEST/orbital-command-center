@@ -78,9 +78,10 @@ ruby test_app.rb
 ```
 orbital-command-center/
 ├── app.rb              # HTTP server + planet catalog (stdlib only)
-├── app.js              # Canvas renderer + all controls
-├── style.css           # Mission-control dark theme
-├── index.html          # Static build — GitHub Pages entry point
+├── index.html          # GitHub Pages static entry point
+├── public/
+│   ├── app.js          # Canvas renderer + all controls
+│   └── style.css       # Mission-control dark theme
 ├── views/
 │   └── index.erb       # ERB template — full UI shell
 ├── test/

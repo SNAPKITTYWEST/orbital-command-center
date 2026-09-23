@@ -34,8 +34,8 @@ module Orbital
     case path
     when '/', '/index.html'
       ['text/html; charset=utf-8', ERB.new(File.read(File.join(ROOT, 'views', 'index.erb'))).result(binding)]
-    when '/app.js'    then ['text/javascript; charset=utf-8', File.read(File.join(ROOT, 'app.js'))]
-    when '/style.css' then ['text/css; charset=utf-8',        File.read(File.join(ROOT, 'style.css'))]
+    when '/public/app.js'    then ['text/javascript; charset=utf-8', File.read(File.join(ROOT, 'public', 'app.js'))]
+    when '/public/style.css' then ['text/css; charset=utf-8',        File.read(File.join(ROOT, 'public', 'style.css'))]
     when '/api/bodies' then ['application/json', JSON.generate(BODIES)]
     else nil
     end

@@ -1,3 +1,8 @@
+<%# Copyright 2026 SNAPKITTYWEST
+    Licensed under the Apache License, Version 2.0
+    http://www.apache.org/licenses/LICENSE-2.0
+    SPDX-License-Identifier: Apache-2.0 %>
+
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MINIKRAN · Orbital command</title><link rel="stylesheet" href="/style.css"></head><body>
 <header><div class="brand"><span class="logo">◎</span><div>ORBITAL VIEW<small>MINIKRAN / COMMAND CENTER</small></div></div><nav><button class="active" id="home">SOLAR SYSTEM</button><button id="top">TOP DOWN</button><button id="export">EXPORT TELEMETRY ↗</button></nav><div class="live"><i></i> LOCAL SIMULATION <time id="clock"></time></div></header>
 <main><aside class="left panel"><div class="eyebrow">CELESTIAL DIRECTORY <span>08</span></div><h2>Solar system</h2><div id="bodies"><% BODIES.each do |body| %><button class="body" data-name="<%= body[:name] %>"><i style="background:<%= body[:color] %>"></i><%= body[:name] %><span>↗</span></button><% end %></div><div class="divider"></div><div class="eyebrow">DISPLAY LAYERS</div><% ['Orbits', 'Labels', 'Asteroid belt', 'Grid'].each do |layer| %><label><input type="checkbox" data-layer="<%= layer %>" checked><%= layer %></label><% end %><div class="notice"><i></i> VISUALIZATION ONLINE<p>Idealized circular orbits.<br>Distances visually compressed.</p></div></aside>

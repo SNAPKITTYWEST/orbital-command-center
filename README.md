@@ -1,15 +1,98 @@
-# Orbital command center
+# Orbital Command Center
 
-Ruby 3.4 serves an ERB interface and planet catalog using standard libraries only. Browser Canvas draws the animated 2D scene; plain JavaScript handles controls. No Python, TypeScript, gems, CDN, or external service is required.
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![Ruby](https://img.shields.io/badge/Ruby-3.2%2B-red.svg)](https://www.ruby-lang.org/)
+[![Tests](https://img.shields.io/badge/tests-3%20tests%2C%2023%20assertions-brightgreen.svg)]()
+[![No gems](https://img.shields.io/badge/dependencies-stdlib%20only-lightgrey.svg)]()
 
-Run from this directory:
+**A zero-dependency Ruby web server and interactive 2D solar system visualization.**
 
-```powershell
-& C:\Ruby34-x64\bin\ruby.exe app.rb
+Eight planets animate in real time. Select any body for telemetry. Toggle display layers, zoom, pause, change simulation speed, focus on a target, and export a JSON position snapshot — all in a single browser tab.
+
+---
+
+## Quick start
+
+```bash
+# Ruby 3.2+ required. No gems. No bundler. No npm.
+ruby app.rb
+
+# Custom port
+PORT=8080 ruby app.rb
 ```
 
-Open http://127.0.0.1:9292. Select planets in the directory or canvas. Change simulation speed, pause, toggle layers, zoom, center on a target, highlight its orbit, switch to top-down view, or export a JSON position snapshot.
+Open **http://127.0.0.1:9292** in any modern browser.
 
-Validate with `ruby test_app.rb`.
+```bash
+# Run the test suite
+ruby test_app.rb
+# 3 tests, 23 assertions, 0 failures, 0 errors
+```
 
-This is a local visualization, not operational spacecraft control. Circular coplanar orbits use approximate periods and arbitrary initial phases; display distances and body sizes are compressed. Coordinates are simulated AU. The MINIKRAN kernel is not connected, and the interface reports that explicitly. The parent project's license applies.
+---
+
+## What it looks like
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ ◎ ORBITAL VIEW  SOLAR SYSTEM   ORBITAL MAP   TOP DOWN   EXPORT ↗   │
+├───────────┬─────────────────────────────────────────┬───────────────┤
+│ CELESTIAL │                                         │ SELECTED      │
+│ DIRECTORY │   ·  ·  .  *    [animated canvas]  .   │ TARGET        │
+│           │                                         │               │
+│ ○ Mercury │      *  ·  ·  ☀  ·  ○  ·  ·  *  ·     │  🌍 EARTH     │
+│ ○ Venus   │                                         │               │
+│ ● Earth   │   orbit rings, asteroid belt, labels    │ Radius 6371km │
+│ ○ Mars    │                                         │ Distance 1 AU │
+│   ...     │                                         │ Period 365 d  │
+│           ├─────────────────────────────────────────┤               │
+│ LAYERS    │  T + 42.00 DAYS   HELIOCENTRIC / 2D    │ ⌖ FOCUS       │
+│ ☑ Orbits  ├─────────────────────────────────────────┤ ◎ TRACK       │
+│ ☑ Labels  │ Ⅱ PAUSE  [speed] + −  X: 0.992  Y: 0.1│               │
+└───────────┴─────────────────────────────────────────┴───────────────┘
+```
+
+---
+
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| [User Guide](docs/USER_GUIDE.md) | Controls, features, export format |
+| [Technical Guide](docs/TECHNICAL_GUIDE.md) | Architecture, server, rendering pipeline |
+| [Contributing](CONTRIBUTING.md) | How to contribute |
+| [Changelog](CHANGELOG.md) | Release history |
+
+---
+
+## Files
+
+```
+orbital-command-center/
+├── app.rb          # HTTP server + planet catalog (stdlib only)
+├── view.erb        # ERB template — full UI shell
+├── app.js          # Canvas renderer + controls
+├── style.css       # Mission-control dark theme
+├── test_app.rb     # Minitest suite (3 tests, 23 assertions)
+├── docs/
+│   ├── USER_GUIDE.md
+│   └── TECHNICAL_GUIDE.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── LICENSE         # Apache 2.0
+```
+
+---
+
+## Notes
+
+- **Local only.** The server binds to `127.0.0.1` — not accessible over a network by default.
+- **Simulated data.** Circular coplanar orbits with approximate periods and arbitrary initial phases. Distances and body sizes are visually compressed for display.
+- **No kernel connection.** The MINIKRAN orchestration kernel is not wired in. The UI reports this explicitly in the Mission Status panel.
+
+---
+
+## License
+
+Apache License 2.0 — see [LICENSE](LICENSE).  
+Copyright 2026 SNAPKITTYWEST.

@@ -30,4 +30,22 @@ class OrbitalTest < Minitest::Test
     assert_nil Orbital.response('/../Cargo.toml')
     assert_nil Orbital.response('/app.rb')
   end
+  def test_landing_page_uses_observation_player
+    _, html = Orbital.response('/')
+    assert_includes html, 'id="video"'
+    refute_includes html, '<canvas'
+    assert_includes Orbital.response('/simulation').last, '<canvas'
+  end
+  def test_failed_source_does_not_manufacture_data
+    Feeds.stub(:get, ->(*) { raise IOError, 'offline' }) do
+      result = Feeds.planet('Neptune')
+      assert result[:error]
+      refute result.key?(:image)
+      refute result.key?(:data)
+    end
+  end
+  def test_only_known_planets_are_routable
+    assert_nil Orbital.response('/api/planet/Pluto')
+    assert_nil Orbital.response('/api/planet/https://example.com')
+  end
 end

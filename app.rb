@@ -16,6 +16,7 @@
 require 'socket'
 require 'erb'
 require 'json'
+require_relative 'feeds'
 
 module Orbital
   ROOT = __dir__
@@ -33,10 +34,18 @@ module Orbital
   def self.response(path)
     case path
     when '/', '/index.html'
+      ['text/html; charset=utf-8', ERB.new(File.read(File.join(ROOT, 'views', 'live.erb'))).result(binding)]
+    when '/simulation'
       ['text/html; charset=utf-8', ERB.new(File.read(File.join(ROOT, 'views', 'index.erb'))).result(binding)]
     when '/public/app.js'    then ['text/javascript; charset=utf-8', File.read(File.join(ROOT, 'public', 'app.js'))]
     when '/public/style.css' then ['text/css; charset=utf-8',        File.read(File.join(ROOT, 'public', 'style.css'))]
     when '/api/bodies' then ['application/json', JSON.generate(BODIES)]
+    when '/public/live.js' then ['text/javascript; charset=utf-8', File.read(File.join(ROOT, 'public', 'live.js'))]
+    when '/public/live.css' then ['text/css; charset=utf-8', File.read(File.join(ROOT, 'public', 'live.css'))]
+    when '/api/iss' then ['application/json', JSON.generate(Feeds.iss)]
+    when '/api/earth' then ['application/json', JSON.generate(Feeds.earth)]
+    when %r{\A/api/planet/(Mercury|Venus|Mars|Jupiter|Saturn|Uranus|Neptune)\z}
+      ['application/json', JSON.generate(Feeds.planet(path.split('/').last))]
     else nil
     end
   end
